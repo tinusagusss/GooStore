@@ -198,7 +198,7 @@
                           <Component id="btnHome" min="-2" pref="235" max="-2" attributes="0"/>
                           <Component id="btnEmployee" min="-2" pref="235" max="-2" attributes="0"/>
                           <Component id="btnStore" min="-2" pref="235" max="-2" attributes="0"/>
-                          <Component id="btmRegion" min="-2" pref="235" max="-2" attributes="0"/>
+                          <Component id="btnRegion" min="-2" pref="235" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -215,7 +215,7 @@
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="btnStore" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="btmRegion" min="-2" pref="60" max="-2" attributes="0"/>
+                      <Component id="btnRegion" min="-2" pref="60" max="-2" attributes="0"/>
                       <EmptySpace pref="347" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -262,7 +262,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHomeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="btmRegion">
+            <Component class="javax.swing.JButton" name="btnRegion">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="a6" green="47" red="7" type="rgb"/>
@@ -295,8 +295,8 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btmRegionFocusGained"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btmRegionActionPerformed"/>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="btnRegionFocusGained"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegionActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnEmployee">
@@ -386,7 +386,7 @@
         </Container>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="Home">
+    <Container class="javax.swing.JPanel" name="viewHome">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -436,7 +436,7 @@
               <Dimension value="[600, 700]"/>
             </Property>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="Home"/>
+              <ComponentRef name="viewHome"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
               <Dimension value="[900, 1280]"/>

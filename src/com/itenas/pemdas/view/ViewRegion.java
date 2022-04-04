@@ -6,11 +6,9 @@
 package com.itenas.pemdas.view;
 
 import com.itenas.pemdas.controller.ConnectionManager;
-import com.itenas.pemdas.controller.ControllerStore;
-import com.itenas.pemdas.entity.Store;
+import com.itenas.pemdas.controller.ControllerRegion;
+import com.itenas.pemdas.entity.Region;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,63 +18,42 @@ import javax.swing.table.TableModel;
  *
  * @author LENOVO
  */
-public class ViewStore extends javax.swing.JPanel {
+public class ViewRegion extends javax.swing.JPanel {
 
-    ControllerStore controllerStore = new ControllerStore();
+    ControllerRegion controllerRegion = new ControllerRegion();
     ConnectionManager connectionManager = new ConnectionManager();
     Connection connection = connectionManager.LogOn();
-    Store store = new Store();
     private final DefaultTableModel model;
 
     /**
      * Creates new form ViewEmployee
      */
-    public ViewStore() {
+    public ViewRegion() {
         initComponents();
 
         model = new DefaultTableModel();
         tblStore.setModel(model);
         model.addColumn("Code");
-        model.addColumn("Store Name");
-        model.addColumn("Store YTD Sales");
-        model.addColumn("Region Code");
+        model.addColumn("Region Descript");
         getData();
-        DataFromDatabaseToComboBox();
     }
 
     public final void getData() {
         DefaultTableModel dtm = (DefaultTableModel) tblStore.getModel();
         dtm.setRowCount(0);
 
-        List<Store> storeList = controllerStore.tampil();
-        String[] data = new String[4];
-        for (Store e : storeList) {
-            data[0] = Integer.toString(e.getStoreCode());
-            data[1] = e.getStoreName();
-            data[2] = e.getStoreSales();
-            data[3] = Integer.toString(e.getRegionCode());
+        List<Region> regionList = controllerRegion.tampil();
+        String[] data = new String[2];
+        for (Region e : regionList) {
+            data[0] = Integer.toString(e.getRegionCode());
+            data[1] = e.getRegionDescript();
             dtm.addRow(data);
         }
     }
 
     public void clearData() {
-        txtStoreName.setText("");
-        txtStoreSales.setText("");
-        comboxStore.setSelectedItem(null);
-    }
-
-    public void DataFromDatabaseToComboBox() {
-        try {
-            String query = "SELECT * FROM region";
-            Statement stm = connection.createStatement();
-            ResultSet rs = stm.executeQuery(query);
-
-            while (rs.next()) {
-                comboxStore.addItem(rs.getString("region_code"));
-            }
-        } catch (Exception e) {
-
-        }
+        txtRegionCode.setText("");
+        txtRegionDesc.setText("");
     }
 
     /**
@@ -93,17 +70,14 @@ public class ViewStore extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        gridOne3 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        txtStoreName = new javax.swing.JTextField();
-        txtStoreSales = new javax.swing.JTextField();
+        txtRegionCode = new javax.swing.JTextField();
+        txtRegionDesc = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
-        comboxStore = new javax.swing.JComboBox<>();
-        jLabel17 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -123,7 +97,7 @@ public class ViewStore extends javax.swing.JPanel {
         heading.setPreferredSize(new java.awt.Dimension(950, 120));
 
         jLabel8.setFont(new java.awt.Font("Open Sans", 1, 18)); // NOI18N
-        jLabel8.setText("Store");
+        jLabel8.setText("Region");
         jLabel8.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout headingLayout = new javax.swing.GroupLayout(heading);
@@ -151,32 +125,6 @@ public class ViewStore extends javax.swing.JPanel {
 
         jLabel9.setFont(new java.awt.Font("Open Sans", 1, 14)); // NOI18N
         jLabel9.setText("Data");
-
-        gridOne3.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel18.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        jLabel18.setText("Store Name");
-
-        jLabel19.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        jLabel19.setText("Store YTD Sales");
-
-        javax.swing.GroupLayout gridOne3Layout = new javax.swing.GroupLayout(gridOne3);
-        gridOne3.setLayout(gridOne3Layout);
-        gridOne3Layout.setHorizontalGroup(
-            gridOne3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(gridOne3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(gridOne3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.Alignment.TRAILING)))
-        );
-        gridOne3Layout.setVerticalGroup(
-            gridOne3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, gridOne3Layout.createSequentialGroup()
-                .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jLabel19))
-        );
 
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -206,14 +154,11 @@ public class ViewStore extends javax.swing.JPanel {
             }
         });
 
-        comboxStore.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboxStoreActionPerformed(evt);
-            }
-        });
+        jLabel19.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        jLabel19.setText("Region Descript");
 
-        jLabel17.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
-        jLabel17.setText("Region Code");
+        jLabel18.setFont(new java.awt.Font("Open Sans", 0, 14)); // NOI18N
+        jLabel18.setText("Region Code");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -226,48 +171,38 @@ public class ViewStore extends javax.swing.JPanel {
                         .addComponent(jLabel9)
                         .addContainerGap(851, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(btnDelete)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnClear)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnUpdate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSubmit))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(gridOne3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtStoreSales, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtStoreName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel17)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboxStore, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(188, 188, 188)))
+                        .addGap(0, 541, Short.MAX_VALUE)
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnClear)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnUpdate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSubmit)
                         .addGap(31, 31, 31))))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(176, 176, 176)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtRegionCode, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtRegionDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(112, 112, 112))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(txtStoreName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel17)
-                                    .addComponent(comboxStore, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtStoreSales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(gridOne3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)))
+                .addComponent(jLabel9)
+                .addGap(38, 38, 38)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRegionCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
+                    .addComponent(txtRegionDesc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addGap(51, 51, 51)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
                     .addComponent(btnUpdate)
@@ -350,8 +285,8 @@ public class ViewStore extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        controllerStore.insertData(txtStoreName.getText(), txtStoreSales.getText(), comboxStore.getSelectedIndex());
-        if (controllerStore.check) {
+        controllerRegion.insertData(Integer.parseInt(txtRegionCode.getText()), txtRegionDesc.getText());
+        if (controllerRegion.check) {
             JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
         } else {
             JOptionPane.showMessageDialog(null, "Gagal ditambahkan", "Error", JOptionPane.ERROR_MESSAGE);
@@ -360,8 +295,8 @@ public class ViewStore extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        controllerStore.updateData(store.getStoreCode(), txtStoreName.getText(), txtStoreSales.getText(), comboxStore.getSelectedIndex());
-        if (controllerStore.check) {
+        controllerRegion.updateData(Integer.parseInt(txtRegionCode.getText()), txtRegionDesc.getText());
+        if (controllerRegion.check) {
             JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
         } else {
             JOptionPane.showMessageDialog(null, "Gagal ditambahkan", "Error", JOptionPane.ERROR_MESSAGE);
@@ -372,11 +307,9 @@ public class ViewStore extends javax.swing.JPanel {
     private void tblStoreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblStoreMouseClicked
         int i = tblStore.getSelectedRow();
         TableModel model = tblStore.getModel();
-        
-        store.setStoreCode(Integer.parseInt(model.getValueAt(i, 0).toString()));
-        txtStoreName.setText(model.getValueAt(i, 1).toString());
-        txtStoreSales.setText(model.getValueAt(i, 2).toString());
-        comboxStore.setSelectedItem(model.getValueAt(i, 3).toString());
+
+        txtRegionCode.setText(model.getValueAt(i, 0).toString());
+        txtRegionDesc.setText(model.getValueAt(i, 1).toString());
     }//GEN-LAST:event_tblStoreMouseClicked
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -386,8 +319,8 @@ public class ViewStore extends javax.swing.JPanel {
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int jawab = JOptionPane.showConfirmDialog(this, "Data ini akan dihapus");
         if (jawab == 0) {
-            controllerStore.deleteData(store.getStoreCode());
-            if (controllerStore.check) {
+            controllerRegion.deleteData(Integer.parseInt(txtRegionCode.getText()));
+            if (controllerRegion.check) {
                 JOptionPane.showMessageDialog(null, "Berhasil dihapus");
                 clearData();
             } else {
@@ -397,21 +330,14 @@ public class ViewStore extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void comboxStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboxStoreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboxStoreActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JComboBox<String> comboxStore;
-    private javax.swing.JPanel gridOne3;
     private javax.swing.JPanel heading;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel8;
@@ -421,7 +347,7 @@ public class ViewStore extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel page;
     private javax.swing.JTable tblStore;
-    private javax.swing.JTextField txtStoreName;
-    private javax.swing.JTextField txtStoreSales;
+    private javax.swing.JTextField txtRegionCode;
+    private javax.swing.JTextField txtRegionDesc;
     // End of variables declaration//GEN-END:variables
 }

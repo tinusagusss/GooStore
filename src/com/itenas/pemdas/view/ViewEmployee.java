@@ -143,7 +143,7 @@ public class ViewEmployee extends javax.swing.JPanel {
         btnSubmit = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
         comboxStoreCode = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -299,10 +299,10 @@ public class ViewEmployee extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Delete");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -320,7 +320,7 @@ public class ViewEmployee extends javax.swing.JPanel {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton1)
+                                .addComponent(btnDelete)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnClear)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -384,7 +384,7 @@ public class ViewEmployee extends javax.swing.JPanel {
                     .addComponent(btnSubmit)
                     .addComponent(btnUpdate)
                     .addComponent(btnClear)
-                    .addComponent(jButton1)))
+                    .addComponent(btnDelete)))
         );
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -559,7 +559,7 @@ public class ViewEmployee extends javax.swing.JPanel {
         clearData();
     }//GEN-LAST:event_btnClearActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int jawab = JOptionPane.showConfirmDialog(this, "Data ini akan dihapus");
         if (jawab == 0) {
             ControllerEmployee.deleteMahasiswa(employee.getNo());
@@ -572,11 +572,12 @@ public class ViewEmployee extends javax.swing.JPanel {
             }
             getData();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox<String> comboxStoreCode;
@@ -585,7 +586,6 @@ public class ViewEmployee extends javax.swing.JPanel {
     private javax.swing.JPanel gridOne2;
     private javax.swing.JPanel gridOne3;
     private javax.swing.JPanel heading;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;

@@ -20,6 +20,7 @@ public class ViewHome extends javax.swing.JFrame {
      */
     JPanel viewEmployee = new ViewEmployee();
     JPanel viewStore = new ViewStore();
+    JPanel viewRegion = new ViewRegion();
 
     public ViewHome() {
         initComponents();
@@ -32,7 +33,7 @@ public class ViewHome extends javax.swing.JFrame {
         }
         setResizable(false);
         setLocationRelativeTo(this);
-        Home.setVisible(true);
+        viewHome.setVisible(true);
     }
 
     /**
@@ -52,11 +53,11 @@ public class ViewHome extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
-        btmRegion = new javax.swing.JButton();
+        btnRegion = new javax.swing.JButton();
         btnEmployee = new javax.swing.JButton();
         btnStore = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        Home = new javax.swing.JPanel();
+        viewHome = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -182,29 +183,29 @@ public class ViewHome extends javax.swing.JFrame {
             }
         });
 
-        btmRegion.setBackground(new java.awt.Color(7, 71, 166));
-        btmRegion.setFont(new java.awt.Font("Open Sans", 0, 22)); // NOI18N
-        btmRegion.setForeground(new java.awt.Color(255, 255, 255));
-        btmRegion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/itenas/pemdas/image/icons8_online_store_24px.png"))); // NOI18N
-        btmRegion.setText("Region");
-        btmRegion.setBorder(null);
-        btmRegion.setBorderPainted(false);
-        btmRegion.setContentAreaFilled(false);
-        btmRegion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btmRegion.setDefaultCapable(false);
-        btmRegion.setFocusPainted(false);
-        btmRegion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btmRegion.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        btmRegion.setIconTextGap(10);
-        btmRegion.setMargin(new java.awt.Insets(0, 14, 0, 14));
-        btmRegion.addFocusListener(new java.awt.event.FocusAdapter() {
+        btnRegion.setBackground(new java.awt.Color(7, 71, 166));
+        btnRegion.setFont(new java.awt.Font("Open Sans", 0, 22)); // NOI18N
+        btnRegion.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/itenas/pemdas/image/icons8_online_store_24px.png"))); // NOI18N
+        btnRegion.setText("Region");
+        btnRegion.setBorder(null);
+        btnRegion.setBorderPainted(false);
+        btnRegion.setContentAreaFilled(false);
+        btnRegion.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRegion.setDefaultCapable(false);
+        btnRegion.setFocusPainted(false);
+        btnRegion.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnRegion.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnRegion.setIconTextGap(10);
+        btnRegion.setMargin(new java.awt.Insets(0, 14, 0, 14));
+        btnRegion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                btmRegionFocusGained(evt);
+                btnRegionFocusGained(evt);
             }
         });
-        btmRegion.addActionListener(new java.awt.event.ActionListener() {
+        btnRegion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btmRegionActionPerformed(evt);
+                btnRegionActionPerformed(evt);
             }
         });
 
@@ -273,7 +274,7 @@ public class ViewHome extends javax.swing.JFrame {
                     .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEmployee, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnStore, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btmRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +288,7 @@ public class ViewHome extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addComponent(btnStore, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(btmRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRegion, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(347, Short.MAX_VALUE))
         );
 
@@ -296,14 +297,14 @@ public class ViewHome extends javax.swing.JFrame {
         getContentPane().add(sideBar, java.awt.BorderLayout.LINE_START);
         sideBar.getAccessibleContext().setAccessibleDescription("");
 
-        Home.setBackground(new java.awt.Color(255, 255, 255));
-        Home.setMaximumSize(new java.awt.Dimension(1680, 1280));
-        Home.setMinimumSize(new java.awt.Dimension(900, 650));
-        Home.setPreferredSize(new java.awt.Dimension(900, 650));
+        viewHome.setBackground(new java.awt.Color(255, 255, 255));
+        viewHome.setMaximumSize(new java.awt.Dimension(1680, 1280));
+        viewHome.setMinimumSize(new java.awt.Dimension(900, 650));
+        viewHome.setPreferredSize(new java.awt.Dimension(900, 650));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setMinimumSize(new java.awt.Dimension(600, 700));
-        jPanel7.setNextFocusableComponent(Home);
+        jPanel7.setNextFocusableComponent(viewHome);
         jPanel7.setPreferredSize(new java.awt.Dimension(900, 1280));
         jPanel7.setLayout(new java.awt.BorderLayout(5, 5));
 
@@ -424,23 +425,23 @@ public class ViewHome extends javax.swing.JFrame {
 
         jPanel7.add(jPanel6, java.awt.BorderLayout.CENTER);
 
-        javax.swing.GroupLayout HomeLayout = new javax.swing.GroupLayout(Home);
-        Home.setLayout(HomeLayout);
-        HomeLayout.setHorizontalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomeLayout.createSequentialGroup()
+        javax.swing.GroupLayout viewHomeLayout = new javax.swing.GroupLayout(viewHome);
+        viewHome.setLayout(viewHomeLayout);
+        viewHomeLayout.setHorizontalGroup(
+            viewHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewHomeLayout.createSequentialGroup()
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        HomeLayout.setVerticalGroup(
-            HomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HomeLayout.createSequentialGroup()
+        viewHomeLayout.setVerticalGroup(
+            viewHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewHomeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        getContentPane().add(Home, java.awt.BorderLayout.CENTER);
+        getContentPane().add(viewHome, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -451,9 +452,10 @@ public class ViewHome extends javax.swing.JFrame {
 
     private void btnStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStoreActionPerformed
         try {
-            add(new ViewStore(), BorderLayout.CENTER);
-            Home.setVisible(false);
+            add(viewStore, BorderLayout.CENTER);
+            viewHome.setVisible(false);
             viewEmployee.setVisible(false);
+            viewRegion.setVisible(false);
             viewStore.setVisible(true);
         } catch (Exception e) {
         }
@@ -465,9 +467,10 @@ public class ViewHome extends javax.swing.JFrame {
 
     private void btnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeActionPerformed
         try {
-            add(new ViewEmployee(), BorderLayout.CENTER);
+            add(viewEmployee, BorderLayout.CENTER);
             viewStore.setVisible(false);
-            Home.setVisible(false);
+            viewHome.setVisible(false);
+            viewRegion.setVisible(false);
             viewEmployee.setVisible(true);
         } catch (Exception e) {
         }
@@ -477,18 +480,26 @@ public class ViewHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEmployeeFocusGained
 
-    private void btmRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btmRegionActionPerformed
+    private void btnRegionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegionActionPerformed
+        try {
+            add(viewRegion, BorderLayout.CENTER);
+            viewEmployee.setVisible(false);
+            viewStore.setVisible(false);
+            viewHome.setVisible(false);
+            viewRegion.setVisible(true);
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnRegionActionPerformed
 
-    }//GEN-LAST:event_btmRegionActionPerformed
-
-    private void btmRegionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btmRegionFocusGained
+    private void btnRegionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnRegionFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_btmRegionFocusGained
+    }//GEN-LAST:event_btnRegionFocusGained
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        Home.setVisible(true);
         viewEmployee.setVisible(false);
         viewStore.setVisible(false);
+        viewRegion.setVisible(false);
+        viewHome.setVisible(true);
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnHomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnHomeFocusGained
@@ -532,11 +543,10 @@ public class ViewHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Home;
-    private javax.swing.JButton btmRegion;
     private javax.swing.JButton btnAbout;
     private javax.swing.JButton btnEmployee;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnRegion;
     private javax.swing.JButton btnStore;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
@@ -556,5 +566,6 @@ public class ViewHome extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel sideBar;
+    private javax.swing.JPanel viewHome;
     // End of variables declaration//GEN-END:variables
 }

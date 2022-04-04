@@ -34,6 +34,14 @@ public class ViewHome extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(this);
         viewHome.setVisible(true);
+                try {
+            add(new ViewAbout(), BorderLayout.CENTER);
+            viewStore.setVisible(false);
+            viewHome.setVisible(false);
+            viewRegion.setVisible(false);
+            viewEmployee.setVisible(true);
+        } catch (Exception e) {
+        }
     }
 
     /**

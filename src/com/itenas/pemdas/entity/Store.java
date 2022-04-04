@@ -25,6 +25,12 @@ public class Store {
         this.regionCode = regionCode;
     }
 
+    public Store(String storeName, String storeSales, int regionCode) {
+        this.storeName = storeName;
+        this.storeSales = storeSales;
+        this.regionCode = regionCode;
+    }
+
     public int getStoreCode() {
         return storeCode;
     }

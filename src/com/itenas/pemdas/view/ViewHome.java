@@ -6,8 +6,6 @@
 package com.itenas.pemdas.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
@@ -20,8 +18,8 @@ public class ViewHome extends javax.swing.JFrame {
     /**
      * Creates new form viewStore
      */
-    Color blue = new Color(7, 71, 166);
-    int i = 0;
+    JPanel viewEmployee = new ViewEmployee();
+    JPanel viewStore = new ViewStore();
 
     public ViewHome() {
         initComponents();
@@ -35,13 +33,6 @@ public class ViewHome extends javax.swing.JFrame {
         setResizable(false);
         setLocationRelativeTo(this);
         Home.setVisible(true);
-        
-            JPanel viewEmployee = new ViewEmployee();
-        try {
-            add(viewEmployee, BorderLayout.CENTER);
-            Home.setVisible(false);
-        } catch (Exception e) {
-        }
     }
 
     /**
@@ -459,7 +450,13 @@ public class ViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAboutActionPerformed
 
     private void btnStoreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStoreActionPerformed
-
+        try {
+            add(new ViewStore(), BorderLayout.CENTER);
+            Home.setVisible(false);
+            viewEmployee.setVisible(false);
+            viewStore.setVisible(true);
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnStoreActionPerformed
 
     private void btnStoreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnStoreFocusGained
@@ -467,7 +464,13 @@ public class ViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnStoreFocusGained
 
     private void btnEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmployeeActionPerformed
-
+        try {
+            add(new ViewEmployee(), BorderLayout.CENTER);
+            viewStore.setVisible(false);
+            Home.setVisible(false);
+            viewEmployee.setVisible(true);
+        } catch (Exception e) {
+        }
     }//GEN-LAST:event_btnEmployeeActionPerformed
 
     private void btnEmployeeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnEmployeeFocusGained
@@ -483,7 +486,9 @@ public class ViewHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btmRegionFocusGained
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-
+        Home.setVisible(true);
+        viewEmployee.setVisible(false);
+        viewStore.setVisible(false);
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnHomeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnHomeFocusGained

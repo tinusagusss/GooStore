@@ -9,6 +9,8 @@ import com.itenas.pemdas.controller.ConnectionManager;
 import com.itenas.pemdas.controller.ControllerEmployee;
 import com.itenas.pemdas.entity.Employee;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,6 +32,7 @@ public class ViewEmployee extends javax.swing.JPanel {
     ConnectionManager connectionManager = new ConnectionManager();
     Connection connection = connectionManager.LogOn();
     ButtonGroup titleGroup = new ButtonGroup();
+    Employee employee = new Employee();
     private final DefaultTableModel model;
 
     /**
@@ -41,6 +44,7 @@ public class ViewEmployee extends javax.swing.JPanel {
 
         model = new DefaultTableModel();
         tblEmployee.setModel(model);
+        model.addColumn("No");
         model.addColumn("Title");
         model.addColumn("First Name");
         model.addColumn("Last Name");
@@ -48,6 +52,7 @@ public class ViewEmployee extends javax.swing.JPanel {
         model.addColumn("Date");
         model.addColumn("Store Code");
         getData();
+        DataFromDatabaseToComboBox();
     }
 
     private void groupButton() {
@@ -63,24 +68,46 @@ public class ViewEmployee extends javax.swing.JPanel {
         List<Employee> employeeList = ControllerEmployee.tampil();
         String[] data = new String[7];
         for (Employee e : employeeList) {
-            data[6] = Integer.toString(e.getNo());
-            data[0] = e.getTitle();
-            data[1] = e.getFirstName();
-            data[2] = e.getLastName();
-            data[3] = e.getInitial();
-            data[4] = e.getDate();
-            data[5] = Integer.toString(e.getStoreCode());
+            data[0] = Integer.toString(e.getNo());
+            data[1] = e.getTitle();
+            data[2] = e.getFirstName();
+            data[3] = e.getLastName();
+            data[4] = e.getInitial();
+            data[5] = e.getDate();
+            data[6] = Integer.toString(e.getStoreCode());
             dtm.addRow(data);
         }
     }
 
     String getDate() {
         String tanggal = "";
-        String pattern = "dd-mmm-yy";
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
+        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yy");
         tanggal = String.valueOf(format.format(dateDate.getDate()));
 
         return tanggal;
+    }
+
+    public void clearData() {
+        txtFirstName.setText("");
+        txtLastName.setText("");
+        titleGroup.clearSelection();
+        dateDate.setCalendar(null);
+        txtInitial.setText("");
+        comboxStoreCode.setSelectedItem(null);
+    }
+
+    public void DataFromDatabaseToComboBox() {
+        try {
+            String query = "SELECT * FROM store";
+            Statement stm = connection.createStatement();
+            ResultSet rs = stm.executeQuery(query);
+
+            while (rs.next()) {
+                comboxStoreCode.addItem(rs.getString("store_code"));
+            }
+        } catch (Exception e) {
+
+        }
     }
 
     /**
@@ -109,13 +136,15 @@ public class ViewEmployee extends javax.swing.JPanel {
         gridOne2 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        txtStoreCode = new javax.swing.JTextField();
         dateDate = new com.toedter.calendar.JDateChooser();
         rbtnMr = new javax.swing.JRadioButton();
         rbtnMs = new javax.swing.JRadioButton();
         rbtnMrs = new javax.swing.JRadioButton();
         btnSubmit = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        comboxStoreCode = new javax.swing.JComboBox<>();
         jPanel8 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -263,6 +292,20 @@ public class ViewEmployee extends javax.swing.JPanel {
             }
         });
 
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Delete");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -277,6 +320,10 @@ public class ViewEmployee extends javax.swing.JPanel {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnClear)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSubmit))
@@ -301,8 +348,8 @@ public class ViewEmployee extends javax.swing.JPanel {
                                 .addComponent(gridOne2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(dateDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtStoreCode, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))))
+                                    .addComponent(dateDate, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(comboxStoreCode, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(31, 31, 31))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -310,12 +357,11 @@ public class ViewEmployee extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                            .addComponent(dateDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtStoreCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(gridOne2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(dateDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(comboxStoreCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(gridOne2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -333,10 +379,12 @@ public class ViewEmployee extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(gridOne3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(35, 35, 35)
+                .addGap(29, 29, 29)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSubmit)
-                    .addComponent(btnUpdate)))
+                    .addComponent(btnUpdate)
+                    .addComponent(btnClear)
+                    .addComponent(jButton1)))
         );
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
@@ -444,7 +492,7 @@ public class ViewEmployee extends javax.swing.JPanel {
             employeeTittle = "Ms";
         }
 
-        ControllerEmployee.insertData(employeeTittle, txtFirstName.getText(), txtLastName.getText(), txtInitial.getText(), getDate(), Integer.parseInt(txtStoreCode.getText()));
+        ControllerEmployee.insertData(employeeTittle, txtFirstName.getText(), txtLastName.getText(), txtInitial.getText(), getDate(), comboxStoreCode.getSelectedIndex());
         if (ControllerEmployee.check) {
             JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
         } else {
@@ -454,55 +502,90 @@ public class ViewEmployee extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        String employeeTittle = "";
+        if (rbtnMr.isSelected()) {
+            employeeTittle = "Mr";
+        } else if (rbtnMrs.isSelected()) {
+            employeeTittle = "Mrs";
+        } else {
+            employeeTittle = "Ms";
+        }
 
+        ControllerEmployee.updateData(employeeTittle, txtFirstName.getText(), txtLastName.getText(), txtInitial.getText(), getDate(), comboxStoreCode.getSelectedIndex(), employee.getNo());
+        if (ControllerEmployee.check) {
+            JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
+        } else {
+            JOptionPane.showMessageDialog(null, "Gagal ditambahkan", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        getData();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
         int i = tblEmployee.getSelectedRow();
-
         TableModel model = tblEmployee.getModel();
-        txtFirstName.setText(model.getValueAt(i, 1).toString());
-        txtLastName.setText(model.getValueAt(i, 2).toString());
         String employeeTittle = "";
-        employeeTittle = (model.getValueAt(i, 0).toString());
+        Date date = new Date();
+
+        employeeTittle = (model.getValueAt(i, 1).toString());
         if (employeeTittle.equals("Mr.")) {
             rbtnMr.setSelected(true);
         } else if (employeeTittle.equals("Mrs.")) {
             rbtnMrs.setSelected(true);
         } else if (employeeTittle.equals("Ms.")) {
             rbtnMs.setSelected(true);
+        } else {
+            titleGroup.clearSelection();
         }
 
-        String tanggal = model.getValueAt(i, 4).toString();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
-        Date date = new Date();
-
+        String tanggal = model.getValueAt(i, 5).toString();
         try {
             date = formatter.parse(tanggal);
-            System.out.println(date);
-
         } catch (ParseException e) {
-            System.out.println(tanggal);
-//            Logger.getLogger(ViewEmployee.class.getName()).log(Level.SEVERE, null, e);
-            System.out.println(date);
-            System.out.println("error");
+            Logger.getLogger(ViewEmployee.class.getName()).log(Level.SEVERE, null, e);
         }
+
+        employee.setNo(Integer.parseInt(model.getValueAt(i, 0).toString()));
+        txtFirstName.setText(model.getValueAt(i, 2).toString());
         dateDate.setDate(date);
-        //txtTanggalLahir.setText(model.getValueAt(i, 3).toString());
-        txtInitial.setText(model.getValueAt(i, 3).toString());
+        txtLastName.setText(model.getValueAt(i, 3).toString());
+        txtInitial.setText(model.getValueAt(i, 4).toString());
+        comboxStoreCode.setSelectedItem(model.getValueAt(i, 6).toString());
+
 //        comboxProgramStudi.setSelectedItem(model.getValueAt(i, 5).toString());
-        txtStoreCode.setText(model.getValueAt(i, 5).toString());
     }//GEN-LAST:event_tblEmployeeMouseClicked
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        clearData();
+    }//GEN-LAST:event_btnClearActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int jawab = JOptionPane.showConfirmDialog(this, "Data ini akan dihapus");
+        if (jawab == 0) {
+            ControllerEmployee.deleteMahasiswa(employee.getNo());
+            System.out.println(employee.getNo());
+            if (ControllerEmployee.check) {
+                JOptionPane.showMessageDialog(null, "Berhasil dihapus");
+                clearData();
+            } else {
+                JOptionPane.showMessageDialog(null, "Gagal dihapus", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            getData();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> comboxStoreCode;
     private com.toedter.calendar.JDateChooser dateDate;
     private javax.swing.JPanel gridOne1;
     private javax.swing.JPanel gridOne2;
     private javax.swing.JPanel gridOne3;
     private javax.swing.JPanel heading;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -523,6 +606,5 @@ public class ViewEmployee extends javax.swing.JPanel {
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtInitial;
     private javax.swing.JTextField txtLastName;
-    private javax.swing.JTextField txtStoreCode;
     // End of variables declaration//GEN-END:variables
 }

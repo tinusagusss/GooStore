@@ -89,11 +89,10 @@ public class ControllerEmployee {
     }
 
     public void deleteMahasiswa(int no) {
-        String query = "DETELE FROM employee WHERE emp_code = ?";
+        String query = "DELETE FROM employee WHERE emp_code = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, no);
-
             preparedStatement.executeUpdate();
             check = true;
         } catch (SQLException e) {

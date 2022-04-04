@@ -48,7 +48,7 @@ public class ControllerEmployee {
         return employeeList;
     }
 
-    public void insertProduk(String title, String firstName, String lastName, String initial, String date, int storeCode) {
+    public void insertData(String title, String firstName, String lastName, String initial, String date, int storeCode) {
         String query = "INSERT INTO employee(emp_title, emp_fname, emp_lname, emp_initial, emp_dob, store_code) VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -68,8 +68,8 @@ public class ControllerEmployee {
 
     }
 
-    public void updateMahasiswa(int no, String title, String firstName, String lastName, String initial, String date, int storeCode) {
-        String query = "UPDATE employee SET emp_title = ?, emp_fname = ?, emp_lname = ?, emp_initial = ?, emp_dob = ?, store_code = ? WHERE emp_code = ?";
+    public void updateData(String title, String firstName, String lastName, String initial, String date, int storeCode, int no) {
+        String query = "UPDATE employee SET emp_title = CONCAT(?,'.'), emp_fname = ?, emp_lname = ?, emp_initial = ?, emp_dob = ?, store_code = ? WHERE emp_code = ?";
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, title);

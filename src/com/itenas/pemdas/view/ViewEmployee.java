@@ -9,11 +9,16 @@ import com.itenas.pemdas.controller.ConnectionManager;
 import com.itenas.pemdas.controller.ControllerEmployee;
 import com.itenas.pemdas.entity.Employee;
 import java.sql.Connection;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -36,7 +41,6 @@ public class ViewEmployee extends javax.swing.JPanel {
 
         model = new DefaultTableModel();
         tblEmployee.setModel(model);
-        model.addColumn("No");
         model.addColumn("Title");
         model.addColumn("First Name");
         model.addColumn("Last Name");
@@ -59,13 +63,13 @@ public class ViewEmployee extends javax.swing.JPanel {
         List<Employee> employeeList = ControllerEmployee.tampil();
         String[] data = new String[7];
         for (Employee e : employeeList) {
-            data[0] = Integer.toString(e.getNo());
-            data[1] = e.getTitle();
-            data[2] = e.getFirstName();
-            data[3] = e.getLastName();
-            data[4] = e.getInitial();
-            data[5] = e.getDate();
-            data[6] = Integer.toString(e.getStoreCode());
+            data[6] = Integer.toString(e.getNo());
+            data[0] = e.getTitle();
+            data[1] = e.getFirstName();
+            data[2] = e.getLastName();
+            data[3] = e.getInitial();
+            data[4] = e.getDate();
+            data[5] = Integer.toString(e.getStoreCode());
             dtm.addRow(data);
         }
     }
@@ -361,6 +365,11 @@ public class ViewEmployee extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        tblEmployee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblEmployeeMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblEmployee);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
@@ -435,7 +444,7 @@ public class ViewEmployee extends javax.swing.JPanel {
             employeeTittle = "Ms";
         }
 
-        ControllerEmployee.insertProduk(employeeTittle, txtFirstName.getText(), txtLastName.getText(), txtInitial.getText(), getDate(), Integer.parseInt(txtStoreCode.getText()));
+        ControllerEmployee.insertData(employeeTittle, txtFirstName.getText(), txtLastName.getText(), txtInitial.getText(), getDate(), Integer.parseInt(txtStoreCode.getText()));
         if (ControllerEmployee.check) {
             JOptionPane.showMessageDialog(null, "Berhasil ditambahkan");
         } else {
@@ -445,8 +454,45 @@ public class ViewEmployee extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void tblEmployeeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmployeeMouseClicked
+        int i = tblEmployee.getSelectedRow();
+
+        TableModel model = tblEmployee.getModel();
+        txtFirstName.setText(model.getValueAt(i, 1).toString());
+        txtLastName.setText(model.getValueAt(i, 2).toString());
+        String employeeTittle = "";
+        employeeTittle = (model.getValueAt(i, 0).toString());
+        if (employeeTittle.equals("Mr.")) {
+            rbtnMr.setSelected(true);
+        } else if (employeeTittle.equals("Mrs.")) {
+            rbtnMrs.setSelected(true);
+        } else if (employeeTittle.equals("Ms.")) {
+            rbtnMs.setSelected(true);
+        }
+
+        String tanggal = model.getValueAt(i, 4).toString();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yy");
+        Date date = new Date();
+
+        try {
+            date = formatter.parse(tanggal);
+            System.out.println(date);
+
+        } catch (ParseException e) {
+            System.out.println(tanggal);
+//            Logger.getLogger(ViewEmployee.class.getName()).log(Level.SEVERE, null, e);
+            System.out.println(date);
+            System.out.println("error");
+        }
+        dateDate.setDate(date);
+        //txtTanggalLahir.setText(model.getValueAt(i, 3).toString());
+        txtInitial.setText(model.getValueAt(i, 3).toString());
+//        comboxProgramStudi.setSelectedItem(model.getValueAt(i, 5).toString());
+        txtStoreCode.setText(model.getValueAt(i, 5).toString());
+    }//GEN-LAST:event_tblEmployeeMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
